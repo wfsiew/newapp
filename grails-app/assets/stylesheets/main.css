@@ -567,3 +567,23 @@ a.skip {
     position: absolute;
     left: -9999px;
 }
+
+.footer {
+clear:both;
+text-align: center;
+padding: 3px;
+border-top: 1px solid #333;
+}
+
+#topbar {
+text align:left;
+width: 778px;
+margin: 0px auto;
+padding: 5px 0;
+}
+#topbar #menu {
+float: right;
+width: 240px;
+text align: right;
+font-size: 10px;
+}
