@@ -20,6 +20,46 @@ class HomeController {
         render(view: "index")
     }
 
+    def login() {
+        render(view: "login")
+    }
+
+    def auth() {
+        def q = Users.where {
+            userName == params.username
+        }
+        Users o = q.find()
+        if (!o) {
+            flash.message = "User not found for userName: ${params.username}"
+            redirect(action: "login")
+            return
+        }
+
+        else {
+            session.user = o
+            redirect(controller: "Todo")
+        }
+    }
+
+    def logout() {
+        if (session.user) {
+            session.user = null
+            session.invalidate()
+            redirect(action: "login")
+        }
+    }
+
+    def check() {
+        def q = Users.where {
+            userName == 'ben'
+        }
+        Users o = q.find()
+        def l = o.roles
+        render(contentType: 'application/json') {
+            l
+        }
+    }
+
     def add() {
         def m = request.JSON
         println m
