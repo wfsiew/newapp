@@ -32,7 +32,6 @@ class HomeController {
         if (!o) {
             flash.message = "User not found for userName: ${params.username}"
             redirect(action: "login")
-            return
         }
 
         else {
@@ -47,6 +46,9 @@ class HomeController {
             session.invalidate()
             redirect(action: "login")
         }
+
+        else
+            redirect(action: "index")
     }
 
     def check() {
@@ -56,7 +58,7 @@ class HomeController {
         Users o = q.find()
         def l = o.roles
         render(contentType: 'application/json') {
-            l
+            o
         }
     }
 
@@ -72,7 +74,7 @@ class HomeController {
         }
     }
 
-    def data2() {
+    def hello() {
         def sql = null
 
         try {
@@ -91,7 +93,7 @@ class HomeController {
             sql?.close()
         }
 
-        render 'success'
+        render "success ${params.id}"
     }
 
     def data() {
