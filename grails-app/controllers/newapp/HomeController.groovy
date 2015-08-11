@@ -78,7 +78,7 @@ class HomeController {
         def sql = null
 
         try {
-            def db = [url:'jdbc:jtds:sqlserver://localhost:1433/appdb;instance=sqlexpress',
+            def db = [url:'jdbc:jtds:sqlserver://localhost:1433/appdb;instance=mssqlserver14',
                       user:'sa', password:'root',
                       driver:'net.sourceforge.jtds.jdbc.Driver']
             sql = Sql.newInstance(db.url, db.user, db.password, db.driver)

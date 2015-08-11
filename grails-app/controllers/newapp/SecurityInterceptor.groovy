@@ -4,19 +4,17 @@ package newapp
 class SecurityInterceptor {
 
 	SecurityInterceptor() {
-		matchAll()
-		.excludes(controller: 'home', action: 'index')
-		.excludes(controller: 'users')
+		match(controller: 'home')
+        .excludes(action: 'login')
+        .excludes(action: 'hello')
 	}
 
     boolean before() {
     	if (!session.user) {
-    		println "false"
     		redirect(controller: "home", action: "login")
     		return false
     	}
 
-        println session.user
     	return true
     }
 
