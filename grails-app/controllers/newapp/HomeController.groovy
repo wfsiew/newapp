@@ -62,6 +62,10 @@ class HomeController {
         }
     }
 
+    def admin() {
+        render "admin"
+    }
+
     def add() {
         def m = request.JSON
         println m
@@ -78,7 +82,7 @@ class HomeController {
         def sql = null
 
         try {
-            def db = [url:'jdbc:jtds:sqlserver://localhost:1433/appdb;instance=mssqlserver14',
+            def db = [url:'jdbc:jtds:sqlserver://localhost:1433/appdb;instance=sqlexpress',
                       user:'sa', password:'root',
                       driver:'net.sourceforge.jtds.jdbc.Driver']
             sql = Sql.newInstance(db.url, db.user, db.password, db.driver)
