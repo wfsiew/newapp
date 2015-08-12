@@ -7,6 +7,8 @@ import net.sf.jasperreports.engine.JasperCompileManager
 import net.sf.jasperreports.engine.JasperFillManager
 import net.sf.jasperreports.engine.JasperPrint
 import net.sf.jasperreports.engine.export.JRPdfExporter
+import net.sf.jasperreports.engine.export.JRHtmlExporter
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter
 
 import java.sql.*
 import java.io.ByteArrayOutputStream
@@ -45,6 +47,38 @@ class ReportController {
     	render(file: b, contentType: 'application/pdf')
     }
 
+    def orders() {
+        ByteArrayOutputStream  bos = null
+        byte[] b = null
+
+        try {
+            String filename = "orders"
+            String reportname = grailsApplication.mainContext.getResource('reports/' + filename + '.jrxml').file.getAbsoluteFile()
+            String dotJasper = grailsApplication.mainContext.getResource('reports/' + filename + '.jasper').file.getAbsoluteFile()
+
+            //JasperCompileManager.compileReportToFile(reportname)
+            JasperPrint print = JasperFillManager.fillReport(dotJasper, null, getConnection2())
+
+            bos = new ByteArrayOutputStream()
+            JRExporter exporter = new JRHtmlExporter()
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, print)
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, bos)
+                
+            exporter.exportReport()
+            b = bos.toByteArray()
+        }
+
+        catch (Exception e) {
+            throw e
+        }
+
+        finally {
+            bos?.close()
+        }
+
+        render(file: b, contentType: 'text/html')
+    }
+
     private getConnection() {
 		Connection con = null
 		
@@ -59,5 +93,23 @@ class ReportController {
 			throw e
 		}
 		
-		return con	}
+		con
+    }
+
+    private getConnection2() {
+        Connection con  = null
+
+        try {
+            String constr = "jdbc:jtds:sqlserver://localhost/FibreSystem;user=sa;password=root;instance=mssqlserver14"
+
+            Class.forName("net.sourceforge.jtds.jdbc.Driver")
+            con = DriverManager.getConnection(constr)
+        }
+
+        catch (Exception e) {
+            throw e
+        }
+
+        con
+    }
 }
