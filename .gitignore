@@ -31,4 +31,4 @@
 
 # "temporary" build files
 /target
-/build/classes
+/build/classes/*
