@@ -13,7 +13,6 @@ class SecurityInterceptor {
 	}
 
     boolean before() {
-    	println "kkk"
     	if (!session.user) {
     		redirect(controller: "home", action: "login")
     		return false

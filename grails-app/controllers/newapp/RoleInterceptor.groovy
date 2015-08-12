@@ -10,7 +10,6 @@ class RoleInterceptor {
 	}
 
     boolean before() {
-    	println "jjj"
     	def k = session.user
 
     	def q = Users.where {

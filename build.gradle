@@ -68,12 +68,12 @@ dependencies {
     compile "org.mongodb:mongo-java-driver:3.0.3"
     compile "org.mongodb.morphia:morphia:1.0.1"
 
-    //compile "commons-beanutils:commons-beanutils:1.9.2"
-    //compile "commons-collections:commons-collections:3.2.1"
-    //compile "commons-digester:commons-digester:2.1"
-    //compile "commons-logging:commons-logging:1.2"
-    //compile "com.lowagie:itext:2.1.7"
-    //compile "net.sf.jasperreports:jasperreports:6.1.0"
+    compile "commons-beanutils:commons-beanutils:1.9.2"
+    compile "commons-collections:commons-collections:3.2.1"
+    compile "commons-digester:commons-digester:2.1"
+    compile "commons-logging:commons-logging:1.2"
+    compile "com.lowagie:itext:2.1.7"
+    compile "net.sf.jasperreports:jasperreports:6.1.0"
     
     runtime "org.grails.plugins:asset-pipeline"
     
