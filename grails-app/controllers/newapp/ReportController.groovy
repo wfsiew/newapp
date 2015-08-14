@@ -7,33 +7,38 @@ import net.sf.jasperreports.engine.JasperCompileManager
 import net.sf.jasperreports.engine.JasperFillManager
 import net.sf.jasperreports.engine.JasperPrint
 import net.sf.jasperreports.engine.export.JRPdfExporter
-import net.sf.jasperreports.engine.export.JRHtmlExporter
-import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter
+import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource
 
 import java.sql.*
 import java.io.ByteArrayOutputStream
 
+import newapp.model.Data
+import newapp.model.ListData
+import newapp.model.Course
+import newapp.model.ListCourse
+
 class ReportController {
 
     def index() { 
-    	ByteArrayOutputStream  pdfStream = null
+    	ByteArrayOutputStream  bos = null
     	byte[] b = null
 
     	try {
     		String filename = "Blank_A4"
-    		String reportname = grailsApplication.mainContext.getResource('reports/' + filename + '.jrxml').file.getAbsoluteFile()
+    		//String reportname = grailsApplication.mainContext.getResource('reports/' + filename + '.jrxml').file.getAbsoluteFile()
     		String dotJasper = grailsApplication.mainContext.getResource('reports/' + filename + '.jasper').file.getAbsoluteFile()
 
-    		JasperCompileManager.compileReportToFile(reportname)
+    		//JasperCompileManager.compileReportToFile(reportname)
     		JasperPrint print = JasperFillManager.fillReport(dotJasper, null, getConnection())
 
-    		pdfStream = new ByteArrayOutputStream()
-    		JRExporter exporter = new JRPdfExporter()
+    		bos = new ByteArrayOutputStream()
+    		JRExporter exporter = new JRDocxExporter()
     		exporter.setParameter(JRExporterParameter.JASPER_PRINT, print)
-    		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, pdfStream)
+    		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, bos)
     		    
     		exporter.exportReport()
-    		b = pdfStream.toByteArray()
+    		b = bos.toByteArray()
     	}
 
     	catch (Exception e) {
@@ -41,26 +46,31 @@ class ReportController {
     	}
 
     	finally {
-    		pdfStream?.close()
+    		bos?.close()
     	}
 
-    	render(file: b, contentType: 'application/pdf')
+    	render(file: b, fileName: "report.docx", contentType: 'application/octet-stream')
     }
 
-    def orders() {
-        ByteArrayOutputStream  bos = null
+    def data() {
+    	ByteArrayOutputStream  bos = null
         byte[] b = null
 
         try {
-            String filename = "orders"
-            String reportname = grailsApplication.mainContext.getResource('reports/' + filename + '.jrxml').file.getAbsoluteFile()
-            String dotJasper = grailsApplication.mainContext.getResource('reports/' + filename + '.jasper').file.getAbsoluteFile()
+        	String filename = "data"
+        	String dotJasper = grailsApplication.mainContext.getResource('reports/' + filename + '.jasper').file.getAbsoluteFile()
 
-            //JasperCompileManager.compileReportToFile(reportname)
-            JasperPrint print = JasperFillManager.fillReport(dotJasper, null, getConnection2())
+        	ListData o = new ListData()
+        	List<Data> l = o.getDataList()
+        	JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(l)
 
-            bos = new ByteArrayOutputStream()
-            JRExporter exporter = new JRHtmlExporter()
+        	def map = [:]
+        	map = [ReportTitle: "List of Contacts", Author: "Prepared By Manisha"]
+
+        	JasperPrint print = JasperFillManager.fillReport(dotJasper, map, beanColDataSource)
+
+        	bos = new ByteArrayOutputStream()
+            JRExporter exporter = new JRDocxExporter()
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, print)
             exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, bos)
                 
@@ -76,7 +86,39 @@ class ReportController {
             bos?.close()
         }
 
-        render(file: b, contentType: 'text/html')
+        render(file: b, fileName: "data.docx", contentType: 'application/octet-stream')
+    }
+
+    def orders() {
+        ByteArrayOutputStream  bos = null
+        byte[] b = null
+
+        try {
+            String filename = "orders"
+            String reportname = grailsApplication.mainContext.getResource('reports/' + filename + '.jrxml').file.getAbsoluteFile()
+            String dotJasper = grailsApplication.mainContext.getResource('reports/' + filename + '.jasper').file.getAbsoluteFile()
+
+            //JasperCompileManager.compileReportToFile(reportname)
+            JasperPrint print = JasperFillManager.fillReport(dotJasper, null, getConnection2())
+
+            bos = new ByteArrayOutputStream()
+            JRExporter exporter = new JRDocxExporter()
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, print)
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, bos)
+                
+            exporter.exportReport()
+            b = bos.toByteArray()
+        }
+
+        catch (Exception e) {
+            throw e
+        }
+
+        finally {
+            bos?.close()
+        }
+
+        render(file: b, fileName: "orders.docx", contentType: 'application/octet-stream')
     }
 
     private getConnection() {
