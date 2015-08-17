@@ -33,7 +33,7 @@ class ReportController {
     		JasperPrint print = JasperFillManager.fillReport(dotJasper, null, getConnection())
 
     		bos = new ByteArrayOutputStream()
-    		JRExporter exporter = new JRDocxExporter()
+    		JRExporter exporter = new JRPdfExporter()
     		exporter.setParameter(JRExporterParameter.JASPER_PRINT, print)
     		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, bos)
     		    
@@ -49,7 +49,7 @@ class ReportController {
     		bos?.close()
     	}
 
-    	render(file: b, fileName: "report.docx", contentType: 'application/octet-stream')
+    	render(file: b, contentType: 'application/pdf')
     }
 
     def data() {
@@ -70,7 +70,7 @@ class ReportController {
         	JasperPrint print = JasperFillManager.fillReport(dotJasper, map, beanColDataSource)
 
         	bos = new ByteArrayOutputStream()
-            JRExporter exporter = new JRDocxExporter()
+            JRExporter exporter = new JRPdfExporter()
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, print)
             exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, bos)
                 
@@ -86,7 +86,7 @@ class ReportController {
             bos?.close()
         }
 
-        render(file: b, fileName: "data.docx", contentType: 'application/octet-stream')
+        render(file: b, contentType: 'application/pdf')
     }
 
     def orders() {
@@ -102,7 +102,7 @@ class ReportController {
             JasperPrint print = JasperFillManager.fillReport(dotJasper, null, getConnection2())
 
             bos = new ByteArrayOutputStream()
-            JRExporter exporter = new JRDocxExporter()
+            JRExporter exporter = new JRPdfExporter()
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, print)
             exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, bos)
                 
@@ -118,7 +118,7 @@ class ReportController {
             bos?.close()
         }
 
-        render(file: b, fileName: "orders.docx", contentType: 'application/octet-stream')
+        render(file: b, contentType: 'application/pdf')
     }
 
     private getConnection() {

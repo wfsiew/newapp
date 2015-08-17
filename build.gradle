@@ -75,7 +75,8 @@ dependencies {
     compile "com.lowagie:itext:2.1.7"
     compile "net.sf.jasperreports:jasperreports:6.1.0"
     
-    runtime "org.grails.plugins:asset-pipeline"
+    //runtime "org.grails.plugins:asset-pipeline"
+    runtime "org.grails.plugins:asset-pipeline:3.0.7"
     
 
     testCompile "org.grails:grails-plugin-testing"
