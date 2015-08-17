@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2015-08-14T11:58:01 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="data" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f56064cc-1415-43c7-ab17-a5eb2b8fffc9">
+	<parameter name="ReportTitle" class="java.lang.String"/>
+	<parameter name="Author" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="country" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<sortField name="country"/>
+	<sortField name="name"/>
+	<variable name="CountryNumber" class="java.lang.Integer" incrementType="Group" incrementGroup="CountryGroup" calculation="Count">
+		<variableExpression><![CDATA[Boolean.TRUE]]></variableExpression>
+	</variable>
+	<group name="CountryGroup">
+		<groupExpression><![CDATA[$F{country}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField evaluationTime="Group" evaluationGroup="CountryGroup" bookmarkLevel="1">
+					<reportElement mode="Opaque" x="0" y="5" width="515" height="15" backcolor="#C0C0C0" uuid="f24ed2bb-7661-42d0-87f0-968cdad651ab"/>
+					<box leftPadding="10">
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textFieldExpression><![CDATA["  " + String.valueOf($V{CountryNumber}) + ". "
+                      + String.valueOf($F{country})]]></textFieldExpression>
+					<anchorNameExpression><![CDATA[String.valueOf($F{country})]]></anchorNameExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<staticText>
+					<reportElement x="400" y="1" width="60" height="15" uuid="7de3da9f-4896-4f72-816a-15e1bd6c3c99"/>
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[Count :]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="460" y="1" width="30" height="15" uuid="078746ac-f07d-4624-9919-bf89f8ab09d0"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{CountryGroup_COUNT}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70">
+			<line>
+				<reportElement x="0" y="0" width="515" height="1" uuid="bde9f652-ff79-4c43-905c-16c60b018761"/>
+			</line>
+			<textField isBlankWhenNull="true" bookmarkLevel="1">
+				<reportElement x="0" y="10" width="515" height="30" uuid="cd03d665-e1a8-4616-b784-7fba1f016278"/>
+				<textElement textAlignment="Center">
+					<font size="22"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ReportTitle}]]></textFieldExpression>
+				<anchorNameExpression><![CDATA["Title"]]></anchorNameExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="40" width="515" height="20" uuid="c86d55a2-9344-4b53-a891-92f6574fc2d1"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Author}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="20" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="48" y="0" width="100" height="30" uuid="c5d9a481-e28c-4fc5-a90a-feb6623271ee"/>
+				<text><![CDATA[country]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="100" height="30" uuid="a71831b0-da2c-4315-a2ca-e0f277fa2908"/>
+				<text><![CDATA[name]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<textField>
+				<reportElement x="48" y="0" width="130" height="20" uuid="46bbc15b-236c-4e6f-b3d8-585867a04ada"/>
+				<textFieldExpression><![CDATA[$F{country}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="142" height="20" uuid="b21644c0-46fb-4665-be38-47a3ad768407"/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
