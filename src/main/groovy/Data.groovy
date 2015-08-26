@@ -21,3 +21,25 @@ class ListData {
 		o
 	}
 }
+
+class Group {
+	int custid
+	double amount
+}
+
+class ListGroup {
+
+	List<Group> getGroupList() {
+		List<Group> l = []
+		l.add(produce(1, 10))
+		l.add(produce(1, 20))
+		l.add(produce(2, 30))
+		l.add(produce(2, 40))
+		l
+	}
+
+	private Group produce(int custid, double amt) {
+		Group o = new Group(custid: custid, amount: amt)
+		o
+	}
+}

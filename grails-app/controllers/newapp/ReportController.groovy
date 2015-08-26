@@ -13,6 +13,8 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource
 import java.sql.*
 import java.io.ByteArrayOutputStream
 
+import newapp.model.Group
+import newapp.model.ListGroup
 import newapp.model.Data
 import newapp.model.ListData
 import newapp.model.Course
@@ -50,6 +52,40 @@ class ReportController {
     	}
 
     	render(file: b, contentType: 'application/pdf')
+    }
+
+    def group() {
+        ByteArrayOutputStream  bos = null
+        byte[] b = null
+
+        try {
+            String filename = "group"
+            String dotJasper = grailsApplication.mainContext.getResource('reports/' + filename + '.jasper').file.getAbsoluteFile()
+
+            ListGroup o = new ListGroup()
+            List<Group> l = o.getGroupList()
+            JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(l)
+
+            JasperPrint print = JasperFillManager.fillReport(dotJasper, null, beanColDataSource)
+
+            bos = new ByteArrayOutputStream()
+            JRExporter exporter = new JRPdfExporter()
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, print)
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, bos)
+                
+            exporter.exportReport()
+            b = bos.toByteArray()
+        }
+
+        catch (Exception e) {
+            throw e
+        }
+
+        finally {
+            bos?.close()
+        }
+
+        render(file: b, contentType: 'application/pdf')
     }
 
     def data() {
