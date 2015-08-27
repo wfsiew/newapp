@@ -1,1 +1,1 @@
-c:\grails-3.0.4\bin\grails run-app
+grails run-app

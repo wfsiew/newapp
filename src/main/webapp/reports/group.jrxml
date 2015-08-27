@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
-<!-- 2015-08-26T23:12:24 -->
+<!-- 2015-08-26T23:58:55 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="group" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2bc9394d-3a8b-46fa-8202-51a765fddc04">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<queryString>
@@ -13,15 +13,19 @@
 	</variable>
 	<variable name="lbl" class="java.lang.String">
 		<variableExpression><![CDATA[$F{custid} == 1 ? "Ben" :
-$F{custid} == 2 ? "David" : "xxx"
-]]></variableExpression>
+$F{custid} == 2 ? "David" : "xxx"]]></variableExpression>
+	</variable>
+	<variable name="num" class="java.lang.Integer" incrementType="Group" incrementGroup="Group1" calculation="Count">
+		<variableExpression><![CDATA[$V{num}]]></variableExpression>
+		<initialValueExpression><![CDATA[1
+]]></initialValueExpression>
 	</variable>
 	<group name="Group1" keepTogether="true">
 		<groupExpression><![CDATA[$F{custid}]]></groupExpression>
 		<groupHeader>
-			<band height="49">
+			<band height="20">
 				<textField>
-					<reportElement x="50" y="10" width="100" height="20" uuid="f10d6e85-c907-4ced-9754-617396a09d26"/>
+					<reportElement x="50" y="0" width="100" height="20" uuid="f10d6e85-c907-4ced-9754-617396a09d26"/>
 					<textFieldExpression><![CDATA[$F{custid}]]></textFieldExpression>
 				</textField>
 			</band>
@@ -48,7 +52,7 @@ $F{custid} == 2 ? "David" : "xxx"
 		<band height="16" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="21" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField>
 				<reportElement x="190" y="0" width="100" height="20" uuid="dc98408f-258f-4959-b183-9a6b044319b8"/>
 				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
@@ -58,8 +62,14 @@ $F{custid} == 2 ? "David" : "xxx"
 				<textFieldExpression><![CDATA[$F{custid}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="310" y="0" width="100" height="21" uuid="65e20907-d404-4658-98cb-ce1789f32141"/>
+				<reportElement x="310" y="0" width="100" height="20" uuid="65e20907-d404-4658-98cb-ce1789f32141">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
 				<textFieldExpression><![CDATA[$V{lbl}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="-1" width="100" height="21" uuid="69365bc1-6d8a-4414-a187-05918f67e796"/>
+				<textFieldExpression><![CDATA[$V{num}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
