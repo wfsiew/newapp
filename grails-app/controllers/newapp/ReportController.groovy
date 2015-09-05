@@ -22,6 +22,51 @@ import newapp.model.ListCourse
 
 class ReportController {
 
+    def mailService
+
+    def email() {
+        ByteArrayOutputStream  bos = null
+        byte[] b = null
+
+        try {
+            String filename = "group"
+            String dotJasper = grailsApplication.mainContext.getResource('reports/' + filename + '.jasper').file.getAbsoluteFile()
+
+            ListGroup o = new ListGroup()
+            List<Group> l = o.getGroupList()
+            JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(l)
+
+            JasperPrint print = JasperFillManager.fillReport(dotJasper, null, beanColDataSource)
+
+            bos = new ByteArrayOutputStream()
+            JRExporter exporter = new JRPdfExporter()
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, print)
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, bos)
+                
+            exporter.exportReport()
+            b = bos.toByteArray()
+        }
+
+        catch (Exception e) {
+            throw e
+        }
+
+        finally {
+            bos?.close()
+        }
+
+        mailService.sendMail {
+            multipart true
+            from "wfsiew@hotmail.com"
+            to "siewwingfei@hotmail.com"
+            subject "hello"
+            html view: "email", model: [param1: "value1"]
+            attach("data.pdf", "application/pdf", b)
+        }
+
+        render "success"
+    }
+
     def index() { 
     	ByteArrayOutputStream  bos = null
     	byte[] b = null

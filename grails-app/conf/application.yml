@@ -4,6 +4,14 @@ grails:
     profile: web
     codegen:
         defaultPackage: newapp
+    mail:
+        host: 'smtp.live.com'
+        port: 587
+        username: 'siewwingfei@hotmail.com'
+        password: '99wad083'
+        props:
+            mail.smtp.starttls.enable: 'true'
+            mail.smtp.port: '587'
 info:
     app:
         name: '@info.app.name@'

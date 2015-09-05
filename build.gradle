@@ -67,6 +67,7 @@ dependencies {
     compile "org.apache.poi:ooxml-schemas:1.1"
     compile "org.mongodb:mongo-java-driver:3.0.3"
     compile "org.mongodb.morphia:morphia:1.0.1"
+    compile "org.grails.plugins:mail:2.0.0.RC2"
 
     compile "commons-beanutils:commons-beanutils:1.9.2"
     compile "commons-collections:commons-collections:3.2.1"
