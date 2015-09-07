@@ -8,7 +8,7 @@ grails:
         host: 'smtp.live.com'
         port: 587
         username: 'siewwingfei@hotmail.com'
-        password: '99wad083'
+        password: '000'
         props:
             mail.smtp.starttls.enable: 'true'
             mail.smtp.port: '587'
